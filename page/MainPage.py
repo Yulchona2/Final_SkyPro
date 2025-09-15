@@ -45,7 +45,7 @@ class MainPage:
             By.CSS_SELECTOR, 'input[type="search"], input[placeholder*="поиск"], input.search-form__input')
         # Вводим название книги
         search_string.send_keys(book_name)
-        search_string.send_keys(Keys.ENTER)
+        search_string.send_keys(Keys.RETURN)
 
         # Кликаем на кнопку поиска (лупа)
         # self.driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Найти"]').click()
@@ -91,16 +91,18 @@ class MainPage:
             EC.presence_of_all_elements_located(
                 (By.CSS_SELECTOR, "button.product-buttons__main-action[aria-label='false']")))
         self.driver.implicitly_wait(10)
-        sleep(10)
-        buy_buttons = self.driver.find_element(
+        buy_buttons = self.driver.find_elements(
             By.CSS_SELECTOR, "button.product-buttons__main-action[aria-label='false']")
 
-        buy_buttons[0].click()
+        self.driver.execute_script("arguments[0].click();", buy_buttons[0])
+
+
 
     # Переход на страницу "Корзина"
     def go_to_cart(self):
-        self.driver.implicitly_wait(2)
-        self.driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Корзина"]').click()
+        self.driver.refresh()
+        cart_button = self.driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Корзина"]')
+        self.driver.execute_script("arguments[0].click();", cart_button)
 
     # Получить количество товаров в корзине
     def get_count_products(self):
@@ -117,10 +119,22 @@ class MainPage:
 
     # Очистить корзину
     def clear_cart(self):
-        self.driver.find_element(By.CSS_SELECTOR, ".cart-page__clear-cart-title").click()
+        # Ожидаем появление всей плашки со словами "Корзина" и "Очистить корзину"
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".cart-page__head-content")))
+        WebDriverWait(self.driver, 20).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, ".cart-page__head-content")))
+
+        # Находим кнопку очистки корзины и кликаем на нее
+        clear_cart_button = self.driver.find_element(By.CSS_SELECTOR, ".cart-page__clear-cart-title")
+        self.driver.execute_script("arguments[0].click();", clear_cart_button)
+
 
     # Получить информацию, что корзина очищена
     def get_information(self):
+        # Ожидаем появление элемента с текстом "Корзина очищена"
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".cart-multiple-delete__title")))
         info = self.driver.find_element(
-            By.CSS_SELECTOR, "section.cart-multiple-delete").text
+            By.CSS_SELECTOR, ".cart-multiple-delete__title").text
         return info

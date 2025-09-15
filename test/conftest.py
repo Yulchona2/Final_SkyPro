@@ -10,7 +10,9 @@ base_url = "https://www.chitai-gorod.ru/"
 @pytest.fixture()
 def driver():
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver.implicitly_wait(7)
     driver.maximize_window()
+    driver.execute_script("document.body.style.zoom='50%'")
     driver.get(base_url)
     yield driver
     driver.quit()

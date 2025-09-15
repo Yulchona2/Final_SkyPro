@@ -59,6 +59,7 @@ def test_clear_cart(driver):
     main_page.search_full_name(test_name)
     main_page.add_to_cart()
     main_page.go_to_cart()
+    main_page.confirm_cookie()
     main_page.clear_cart()
     info = main_page.get_information()
     assert "Корзина очищена" in info
