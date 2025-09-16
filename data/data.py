@@ -3,7 +3,7 @@ BASE_URL_API = "https://web-gate.chitai-gorod.ru/api/v2"
 BASE_URL_SEARCH = BASE_URL_API + "/search/product"
 
 HEADERS_PROJECT = {
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3VzZXItcmlnaHQiLCJzdWIiOjIyMzQ5NjIyLCJpYXQiOjE3NTgwMzg3MjcsImV4cCI6MTc1ODA0MjMyNywidHlwZSI6MjAsImp0aSI6IjAxOTk1MzQ2LTFiMTAtNzdiYS1hNzRhLTZjZTMwNWI3MzRhMSIsInJvbGVzIjoxMH0.9gKuBqCNM_RkyDWRLV60JBaNBKjj9NT993M-j7aTzcM",
+        "Authorization": "Подставить свой токен авторизации",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
     }
 
